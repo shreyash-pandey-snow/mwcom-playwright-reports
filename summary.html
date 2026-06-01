@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>AEM Smoke Summary</title>
+<style>
+  :root { color-scheme: light; }
+  body { font: 14px/1.5 -apple-system, system-ui, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; }
+  header { background: #0f172a; color: #fff; padding: 18px 28px; }
+  header h1 { margin: 0; font-size: 18px; }
+  header .sub { font-size: 12px; opacity: 0.75; margin-top: 4px; }
+  main { padding: 24px 28px; max-width: 1400px; margin: 0 auto; }
+  section { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px 22px; margin-bottom: 24px; }
+  section h2 { margin: 0 0 14px; font-size: 15px; text-transform: uppercase; letter-spacing: 0.04em; color: #334155; }
+  .stats { display: flex; gap: 24px; flex-wrap: wrap; }
+  .stat { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; min-width: 140px; }
+  .stat .n { font-size: 28px; font-weight: 600; }
+  .stat .l { font-size: 11px; text-transform: uppercase; color: #64748b; letter-spacing: 0.06em; }
+  .bars { display: grid; grid-template-columns: 200px 1fr 60px; gap: 6px 12px; align-items: center; }
+  .bars .label { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 12px; }
+  .bars .bar { background: #e2e8f0; border-radius: 4px; height: 18px; overflow: hidden; }
+  .bars .bar > div { height: 100%; }
+  .bars .count { font-variant-numeric: tabular-nums; text-align: right; font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  th { background: #f1f5f9; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: #475569; }
+  tr:hover td { background: #f8fafc; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; color: #fff; font-size: 11px; font-family: ui-monospace, SFMono-Regular, monospace; margin: 1px 2px; }
+  details { margin: 4px 0; }
+  details summary { cursor: pointer; color: #475569; font-size: 12px; }
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+  .card { border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; background: #fff; }
+  .card img { width: 100%; height: 140px; object-fit: contain; background: repeating-conic-gradient(#f1f5f9 0% 25%, #fff 0% 50%) 50% / 20px 20px; border-radius: 4px; }
+  .card .u { font-size: 10px; font-family: ui-monospace, SFMono-Regular, monospace; word-break: break-all; margin-top: 6px; color: #475569; max-height: 48px; overflow: hidden; }
+  .card .meta { font-size: 10px; color: #64748b; margin-top: 4px; }
+  a { color: #2563eb; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .shotrow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .shotrow a { display: inline-block; }
+  .shotrow img { width: 90px; height: 60px; object-fit: cover; border: 1px solid #cbd5e1; border-radius: 4px; }
+  .empty { padding: 24px; text-align: center; color: #64748b; font-style: italic; }
+</style></head>
+<body>
+<header>
+  <h1>AEM Smoke / Sanity Summary</h1>
+  <div class="sub">Generated 2026-06-01T10:51:16.803Z · source: playwright-report/results.json</div>
+</header>
+<main>
+
+<section>
+  <h2>Overview</h2>
+  <div class="stats">
+    <div class="stat"><div class="n">0</div><div class="l">Tests Run</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Passed</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Failed</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Pages Tested</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">404 Pages</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Redirects</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Links Checked</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Broken Links</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Visual Diffs</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Total Issues</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Broken Assets</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Tests Run (0) · Pages Tested (0 unique)</h2>
+  <div class="empty">No tests in results.json.</div>
+</section>
+
+<section>
+  <h2>404 Pages (0)</h2>
+  <div class="empty">No 404 pages — every navigation returned 200 (after redirects).</div>
+</section>
+
+<section>
+  <h2>Redirects (0)</h2>
+  <div class="empty">No 3xx redirects captured during this run.</div>
+</section>
+
+<section>
+  <h2>Link Audit — Broken Links (0 unique · 0 checked total)</h2>
+  <div class="empty">Link audit did not run.</div>
+</section>
+
+<section>
+  <h2>Visual Diffs (0)</h2>
+  <div class="empty">No visual diff triplets found. Either all visual tests passed or none ran.</div>
+</section>
+
+<section>
+  <h2>Issues by Category</h2>
+  <div class="empty">No tagged issues found in the report. Did the run actually finish? Or did the tests pass cleanly?</div>
+</section>
+
+
+
+<section>
+  <h2>Per-page Issues (0)</h2>
+  <div class="empty">No per-page issues.</div>
+</section>
+
+</main></body></html>
