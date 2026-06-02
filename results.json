@@ -14,7 +14,7 @@
       "ci": {
         "commitHref": "https://github.com/moveworks-emu/mwcom/commit/341702d1d8e95a56a55b35e95f2dce084092c17d",
         "commitHash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
-        "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26829409221"
+        "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26831993267"
       },
       "gitCommit": {
         "shortHash": "341702d",
@@ -44,7 +44,7 @@
           "ci": {
             "commitHref": "https://github.com/moveworks-emu/mwcom/commit/341702d1d8e95a56a55b35e95f2dce084092c17d",
             "commitHash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
-            "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26829409221"
+            "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26831993267"
           },
           "gitCommit": {
             "shortHash": "341702d",
@@ -128,8 +128,8 @@
     }
   ],
   "stats": {
-    "startTime": "2026-06-02T15:18:03.409Z",
-    "duration": 891.4660000000001,
+    "startTime": "2026-06-02T16:02:04.997Z",
+    "duration": 571.5949999999999,
     "expected": 0,
     "skipped": 0,
     "unexpected": 0,
