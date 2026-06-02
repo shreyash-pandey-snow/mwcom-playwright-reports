@@ -12,24 +12,24 @@
     "maxFailures": 0,
     "metadata": {
       "ci": {
-        "commitHref": "https://github.com/moveworks-emu/mwcom/commit/5ab54e65f0f0947858cd2d25e982a89e204f596a",
-        "commitHash": "5ab54e65f0f0947858cd2d25e982a89e204f596a",
-        "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26750649895"
+        "commitHref": "https://github.com/moveworks-emu/mwcom/commit/341702d1d8e95a56a55b35e95f2dce084092c17d",
+        "commitHash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
+        "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26829409221"
       },
       "gitCommit": {
-        "shortHash": "5ab54e6",
-        "hash": "5ab54e65f0f0947858cd2d25e982a89e204f596a",
-        "subject": "WEBDEV-1475: re-enable screenshots + bounded videos so reports show evidence",
-        "body": "WEBDEV-1475: re-enable screenshots + bounded videos so reports show evidence\n\nPrevious change set screenshot to only-on-failure, which meant passing\nruns produced a 195KB empty-looking report — no visible evidence of\nwhat was tested. Reviewers couldn't tell if the tests actually ran.\n\nTuned the artifact mix:\n  screenshot: 'on'\n    — every test keeps screenshots. ~50-200KB each; hundreds still fit\n      under the size budget.\n  video: { mode: 'retain-on-failure', size: 640x360 }\n    — only failed tests get videos, and at half the previous resolution.\n      A failed test's webm drops from ~10MB to ~2-3MB.\n  trace: 'retain-on-failure'\n    — only failed tests get traces. Unchanged.\n\nnav-pages-sanity still overrides to trace+video=off because its one-\ntest-many-pages design produces 150MB+ traces. Per-page screenshots\nunder screenshots/nav-sanity/ remain the visible evidence for that\nspec.\n\nNet: a green run now produces a report with full screenshots (~5-15MB\ntotal), making it useful to scroll through. A red run adds smaller\nvideos and traces. Either way stays under the 100MB-per-file limit.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\n",
+        "shortHash": "341702d",
+        "hash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
+        "subject": "WEBDEV-1475: drop networkidle wait from all visual specs",
+        "body": "WEBDEV-1475: drop networkidle wait from all visual specs\n\n`page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {})`\nwas always timing out on production pages — Vimeo embeds, Marketo\nforms, GTM/Bing UET trackers etc. keep the network constantly busy,\nso the page never reaches network idle within 10s. Failure was\nswallowed by .catch but every snapshot still lost 10s wall time.\n\nPage is already settled enough for screenshotting by:\n  - `waitUntil: 'load'` in gotoOrSkip()\n  - stabilizePage() (animations off + reduced-motion)\n  - `root.waitFor({ state: 'visible' })` on the element being snapped\n\nRemoved the line from all 15 visual specs. Saves ~10s × 15 ≈ 2.5 min\non Phase 3 runtime; per-spec individual wait drops from ~14s to ~4s\nin the trace timeline.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\n",
         "author": {
           "name": "Shreyash Pandey",
           "email": "spandey@moveworks.ai",
-          "time": 1780311306000
+          "time": 1780411979000
         },
         "committer": {
           "name": "Shreyash Pandey",
           "email": "spandey@moveworks.ai",
-          "time": 1780311306000
+          "time": 1780411979000
         },
         "branch": "feature/spandey_movester/WEBDEV-1475-nav-sanity-resilience"
       }
@@ -42,24 +42,24 @@
         "retries": 0,
         "metadata": {
           "ci": {
-            "commitHref": "https://github.com/moveworks-emu/mwcom/commit/5ab54e65f0f0947858cd2d25e982a89e204f596a",
-            "commitHash": "5ab54e65f0f0947858cd2d25e982a89e204f596a",
-            "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26750649895"
+            "commitHref": "https://github.com/moveworks-emu/mwcom/commit/341702d1d8e95a56a55b35e95f2dce084092c17d",
+            "commitHash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
+            "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26829409221"
           },
           "gitCommit": {
-            "shortHash": "5ab54e6",
-            "hash": "5ab54e65f0f0947858cd2d25e982a89e204f596a",
-            "subject": "WEBDEV-1475: re-enable screenshots + bounded videos so reports show evidence",
-            "body": "WEBDEV-1475: re-enable screenshots + bounded videos so reports show evidence\n\nPrevious change set screenshot to only-on-failure, which meant passing\nruns produced a 195KB empty-looking report — no visible evidence of\nwhat was tested. Reviewers couldn't tell if the tests actually ran.\n\nTuned the artifact mix:\n  screenshot: 'on'\n    — every test keeps screenshots. ~50-200KB each; hundreds still fit\n      under the size budget.\n  video: { mode: 'retain-on-failure', size: 640x360 }\n    — only failed tests get videos, and at half the previous resolution.\n      A failed test's webm drops from ~10MB to ~2-3MB.\n  trace: 'retain-on-failure'\n    — only failed tests get traces. Unchanged.\n\nnav-pages-sanity still overrides to trace+video=off because its one-\ntest-many-pages design produces 150MB+ traces. Per-page screenshots\nunder screenshots/nav-sanity/ remain the visible evidence for that\nspec.\n\nNet: a green run now produces a report with full screenshots (~5-15MB\ntotal), making it useful to scroll through. A red run adds smaller\nvideos and traces. Either way stays under the 100MB-per-file limit.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\n",
+            "shortHash": "341702d",
+            "hash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
+            "subject": "WEBDEV-1475: drop networkidle wait from all visual specs",
+            "body": "WEBDEV-1475: drop networkidle wait from all visual specs\n\n`page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {})`\nwas always timing out on production pages — Vimeo embeds, Marketo\nforms, GTM/Bing UET trackers etc. keep the network constantly busy,\nso the page never reaches network idle within 10s. Failure was\nswallowed by .catch but every snapshot still lost 10s wall time.\n\nPage is already settled enough for screenshotting by:\n  - `waitUntil: 'load'` in gotoOrSkip()\n  - stabilizePage() (animations off + reduced-motion)\n  - `root.waitFor({ state: 'visible' })` on the element being snapped\n\nRemoved the line from all 15 visual specs. Saves ~10s × 15 ≈ 2.5 min\non Phase 3 runtime; per-spec individual wait drops from ~14s to ~4s\nin the trace timeline.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\n",
             "author": {
               "name": "Shreyash Pandey",
               "email": "spandey@moveworks.ai",
-              "time": 1780311306000
+              "time": 1780411979000
             },
             "committer": {
               "name": "Shreyash Pandey",
               "email": "spandey@moveworks.ai",
-              "time": 1780311306000
+              "time": 1780411979000
             },
             "branch": "feature/spandey_movester/WEBDEV-1475-nav-sanity-resilience"
           }
@@ -112,24 +112,24 @@
       "message": "Cannot use({ trace }) in a describe group, because it forces a new worker.\nMake it top-level in the test file or put in the configuration file.",
       "location": {
         "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts",
-        "line": 106,
+        "line": 112,
         "column": 8
       },
-      "snippet": "   at nav-pages-sanity.spec.ts:106\n\n\u001b[0m \u001b[90m 104 |\u001b[39m   \u001b[90m// bounded by page count) — that's the visible evidence of what was tested.\u001b[39m\n \u001b[90m 105 |\u001b[39m   \u001b[90m// Per-page videos would multiply the same way as traces, so off too.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 106 |\u001b[39m   test\u001b[33m.\u001b[39muse({ trace\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m\u001b[33m,\u001b[39m video\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 107 |\u001b[39m\n \u001b[90m 108 |\u001b[39m   \u001b[36mlet\u001b[39m navPaths\u001b[33m:\u001b[39m string[] \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n \u001b[90m 109 |\u001b[39m\u001b[0m"
+      "snippet": "   at nav-pages-sanity.spec.ts:112\n\n\u001b[0m \u001b[90m 110 |\u001b[39m   \u001b[90m// 100MB-per-file push limit. Per-page screenshots in screenshots/nav-sanity/\u001b[39m\n \u001b[90m 111 |\u001b[39m   \u001b[90m// are still captured for visible evidence.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 112 |\u001b[39m   test\u001b[33m.\u001b[39muse({ trace\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m\u001b[33m,\u001b[39m video\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 113 |\u001b[39m\n \u001b[90m 114 |\u001b[39m   \u001b[36mlet\u001b[39m navPaths\u001b[33m:\u001b[39m string[] \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n \u001b[90m 115 |\u001b[39m\u001b[0m"
     },
     {
       "message": "Cannot use({ video }) in a describe group, because it forces a new worker.\nMake it top-level in the test file or put in the configuration file.",
       "location": {
         "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts",
-        "line": 106,
+        "line": 112,
         "column": 8
       },
-      "snippet": "   at nav-pages-sanity.spec.ts:106\n\n\u001b[0m \u001b[90m 104 |\u001b[39m   \u001b[90m// bounded by page count) — that's the visible evidence of what was tested.\u001b[39m\n \u001b[90m 105 |\u001b[39m   \u001b[90m// Per-page videos would multiply the same way as traces, so off too.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 106 |\u001b[39m   test\u001b[33m.\u001b[39muse({ trace\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m\u001b[33m,\u001b[39m video\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 107 |\u001b[39m\n \u001b[90m 108 |\u001b[39m   \u001b[36mlet\u001b[39m navPaths\u001b[33m:\u001b[39m string[] \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n \u001b[90m 109 |\u001b[39m\u001b[0m"
+      "snippet": "   at nav-pages-sanity.spec.ts:112\n\n\u001b[0m \u001b[90m 110 |\u001b[39m   \u001b[90m// 100MB-per-file push limit. Per-page screenshots in screenshots/nav-sanity/\u001b[39m\n \u001b[90m 111 |\u001b[39m   \u001b[90m// are still captured for visible evidence.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 112 |\u001b[39m   test\u001b[33m.\u001b[39muse({ trace\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m\u001b[33m,\u001b[39m video\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 113 |\u001b[39m\n \u001b[90m 114 |\u001b[39m   \u001b[36mlet\u001b[39m navPaths\u001b[33m:\u001b[39m string[] \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n \u001b[90m 115 |\u001b[39m\u001b[0m"
     }
   ],
   "stats": {
-    "startTime": "2026-06-01T10:57:05.362Z",
-    "duration": 937.518,
+    "startTime": "2026-06-02T15:18:03.409Z",
+    "duration": 891.4660000000001,
     "expected": 0,
     "skipped": 0,
     "unexpected": 0,
