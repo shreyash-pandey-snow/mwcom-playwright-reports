@@ -12,27 +12,28 @@
     "maxFailures": 0,
     "metadata": {
       "ci": {
-        "commitHref": "https://github.com/moveworks-emu/mwcom/commit/341702d1d8e95a56a55b35e95f2dce084092c17d",
-        "commitHash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
-        "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26831993267"
+        "commitHref": "https://github.com/moveworks-emu/mwcom/commit/ac9631c1ab3a79a0185ebe2ecb41b52c397dbdfe",
+        "commitHash": "ac9631c1ab3a79a0185ebe2ecb41b52c397dbdfe",
+        "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26833069009"
       },
       "gitCommit": {
-        "shortHash": "341702d",
-        "hash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
-        "subject": "WEBDEV-1475: drop networkidle wait from all visual specs",
-        "body": "WEBDEV-1475: drop networkidle wait from all visual specs\n\n`page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {})`\nwas always timing out on production pages — Vimeo embeds, Marketo\nforms, GTM/Bing UET trackers etc. keep the network constantly busy,\nso the page never reaches network idle within 10s. Failure was\nswallowed by .catch but every snapshot still lost 10s wall time.\n\nPage is already settled enough for screenshotting by:\n  - `waitUntil: 'load'` in gotoOrSkip()\n  - stabilizePage() (animations off + reduced-motion)\n  - `root.waitFor({ state: 'visible' })` on the element being snapped\n\nRemoved the line from all 15 visual specs. Saves ~10s × 15 ≈ 2.5 min\non Phase 3 runtime; per-spec individual wait drops from ~14s to ~4s\nin the trace timeline.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\n",
+        "shortHash": "ac9631c",
+        "hash": "ac9631c1ab3a79a0185ebe2ecb41b52c397dbdfe",
+        "subject": "WEBDEV-1475: revert axe-core a11y scan from nav-pages-sanity (defer for now)",
+        "body": "WEBDEV-1475: revert axe-core a11y scan from nav-pages-sanity (defer for now)\n\nRemove the WCAG 2.1 AA scan that was running per-page in nav-pages-\nsanity. The a11y signal was floods of color-contrast / link-name\nviolations across nearly every page, none of which the team is\npositioned to triage in the current sprint.\n\nStripped:\n  - import AxeBuilder from '@axe-core/playwright'\n  - per-page axe scan block (try/catch around new AxeBuilder().analyze())\n  - [A11Y x<n>] / [A11Y <impact>] log markers (downstream summarizer\n    section will be empty until/unless a11y is re-enabled)\n\n@axe-core/playwright stays in package.json — it's a small dep and we\nmay re-enable in a follow-up. No code references it now.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\n",
         "author": {
           "name": "Shreyash Pandey",
           "email": "spandey@moveworks.ai",
-          "time": 1780411979000
+          "time": 1780417211000
         },
         "committer": {
           "name": "Shreyash Pandey",
           "email": "spandey@moveworks.ai",
-          "time": 1780411979000
+          "time": 1780417211000
         },
         "branch": "feature/spandey_movester/WEBDEV-1475-nav-sanity-resilience"
-      }
+      },
+      "actualWorkers": 1
     },
     "preserveOutput": "always",
     "projects": [
@@ -42,27 +43,28 @@
         "retries": 0,
         "metadata": {
           "ci": {
-            "commitHref": "https://github.com/moveworks-emu/mwcom/commit/341702d1d8e95a56a55b35e95f2dce084092c17d",
-            "commitHash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
-            "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26831993267"
+            "commitHref": "https://github.com/moveworks-emu/mwcom/commit/ac9631c1ab3a79a0185ebe2ecb41b52c397dbdfe",
+            "commitHash": "ac9631c1ab3a79a0185ebe2ecb41b52c397dbdfe",
+            "buildHref": "https://github.com/moveworks-emu/mwcom/actions/runs/26833069009"
           },
           "gitCommit": {
-            "shortHash": "341702d",
-            "hash": "341702d1d8e95a56a55b35e95f2dce084092c17d",
-            "subject": "WEBDEV-1475: drop networkidle wait from all visual specs",
-            "body": "WEBDEV-1475: drop networkidle wait from all visual specs\n\n`page.waitForLoadState('networkidle', { timeout: 10_000 }).catch(() => {})`\nwas always timing out on production pages — Vimeo embeds, Marketo\nforms, GTM/Bing UET trackers etc. keep the network constantly busy,\nso the page never reaches network idle within 10s. Failure was\nswallowed by .catch but every snapshot still lost 10s wall time.\n\nPage is already settled enough for screenshotting by:\n  - `waitUntil: 'load'` in gotoOrSkip()\n  - stabilizePage() (animations off + reduced-motion)\n  - `root.waitFor({ state: 'visible' })` on the element being snapped\n\nRemoved the line from all 15 visual specs. Saves ~10s × 15 ≈ 2.5 min\non Phase 3 runtime; per-spec individual wait drops from ~14s to ~4s\nin the trace timeline.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\n",
+            "shortHash": "ac9631c",
+            "hash": "ac9631c1ab3a79a0185ebe2ecb41b52c397dbdfe",
+            "subject": "WEBDEV-1475: revert axe-core a11y scan from nav-pages-sanity (defer for now)",
+            "body": "WEBDEV-1475: revert axe-core a11y scan from nav-pages-sanity (defer for now)\n\nRemove the WCAG 2.1 AA scan that was running per-page in nav-pages-\nsanity. The a11y signal was floods of color-contrast / link-name\nviolations across nearly every page, none of which the team is\npositioned to triage in the current sprint.\n\nStripped:\n  - import AxeBuilder from '@axe-core/playwright'\n  - per-page axe scan block (try/catch around new AxeBuilder().analyze())\n  - [A11Y x<n>] / [A11Y <impact>] log markers (downstream summarizer\n    section will be empty until/unless a11y is re-enabled)\n\n@axe-core/playwright stays in package.json — it's a small dep and we\nmay re-enable in a follow-up. No code references it now.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\n",
             "author": {
               "name": "Shreyash Pandey",
               "email": "spandey@moveworks.ai",
-              "time": 1780411979000
+              "time": 1780417211000
             },
             "committer": {
               "name": "Shreyash Pandey",
               "email": "spandey@moveworks.ai",
-              "time": 1780411979000
+              "time": 1780417211000
             },
             "branch": "feature/spandey_movester/WEBDEV-1475-nav-sanity-resilience"
-          }
+          },
+          "actualWorkers": 1
         },
         "id": "chromium",
         "name": "chromium",
@@ -106,33 +108,3849 @@
     "workers": 1,
     "webServer": null
   },
-  "suites": [],
-  "errors": [
+  "suites": [
     {
-      "message": "Cannot use({ trace }) in a describe group, because it forces a new worker.\nMake it top-level in the test file or put in the configuration file.",
-      "location": {
-        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts",
-        "line": 112,
-        "column": 8
-      },
-      "snippet": "   at nav-pages-sanity.spec.ts:112\n\n\u001b[0m \u001b[90m 110 |\u001b[39m   \u001b[90m// 100MB-per-file push limit. Per-page screenshots in screenshots/nav-sanity/\u001b[39m\n \u001b[90m 111 |\u001b[39m   \u001b[90m// are still captured for visible evidence.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 112 |\u001b[39m   test\u001b[33m.\u001b[39muse({ trace\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m\u001b[33m,\u001b[39m video\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 113 |\u001b[39m\n \u001b[90m 114 |\u001b[39m   \u001b[36mlet\u001b[39m navPaths\u001b[33m:\u001b[39m string[] \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n \u001b[90m 115 |\u001b[39m\u001b[0m"
+      "title": "components/accordion.spec.ts",
+      "file": "components/accordion.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: accordion",
+          "file": "components/accordion.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "No pages in component-index.json for moveworksprogram/components/accordion — re-run `npm run build-index` against author if this component was recently added or moved.",
+                      "location": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/accordion.spec.ts",
+                        "line": 23,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 1,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "accordion: 0 pages to check\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:21:47.880Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "No pages in component-index.json for moveworksprogram/components/accordion — re-run `npm run build-index` against author if this component was recently added or moved.",
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/accordion.spec.ts",
+                            "line": 23,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-accordion-Compo-b954b-ordion-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e34f8639078dfc5b4a59-56542e4f07f849480443",
+              "file": "components/accordion.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "expands a panel when its button is clicked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "No pages in component-index.json for moveworksprogram/components/accordion — re-run `npm run build-index` against author if this component was recently added or moved.",
+                      "location": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/accordion.spec.ts",
+                        "line": 23,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:21:47.998Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "No pages in component-index.json for moveworksprogram/components/accordion — re-run `npm run build-index` against author if this component was recently added or moved.",
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/accordion.spec.ts",
+                            "line": 23,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-accordion-Compo-25d97--when-its-button-is-clicked-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e34f8639078dfc5b4a59-7065908604f1e21daa63",
+              "file": "components/accordion.spec.ts",
+              "line": 60,
+              "column": 7
+            }
+          ]
+        }
+      ]
     },
     {
-      "message": "Cannot use({ video }) in a describe group, because it forces a new worker.\nMake it top-level in the test file or put in the configuration file.",
-      "location": {
-        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts",
-        "line": 112,
-        "column": 8
-      },
-      "snippet": "   at nav-pages-sanity.spec.ts:112\n\n\u001b[0m \u001b[90m 110 |\u001b[39m   \u001b[90m// 100MB-per-file push limit. Per-page screenshots in screenshots/nav-sanity/\u001b[39m\n \u001b[90m 111 |\u001b[39m   \u001b[90m// are still captured for visible evidence.\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 112 |\u001b[39m   test\u001b[33m.\u001b[39muse({ trace\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m\u001b[33m,\u001b[39m video\u001b[33m:\u001b[39m \u001b[32m'off'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 113 |\u001b[39m\n \u001b[90m 114 |\u001b[39m   \u001b[36mlet\u001b[39m navPaths\u001b[33m:\u001b[39m string[] \u001b[33m=\u001b[39m []\u001b[33m;\u001b[39m\n \u001b[90m 115 |\u001b[39m\u001b[0m"
+      "title": "components/breadcrumb-subnav.spec.ts",
+      "file": "components/breadcrumb-subnav.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: breadcrumb-subnav",
+          "file": "components/breadcrumb-subnav.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7693,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "breadcrumb-subnav: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[REDIRECT 301] https://www.moveworks.com/us/en/lp/test-integrations-subpage -> /us/en/platform/integrations/servicenow\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/lp/test-integrations-subpage\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/company/news/press-releases/Moveworks-Recognized-for-Generative-AI-Innovation-in-2023-Artificial-Intelligence-Breakthrough-Awards-Program\n"
+                        },
+                        {
+                          "text": "[REDIRECT 301] https://www.moveworks.com/us/en/product/approvals -> /us/en/platform\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/product/approvals\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/lp/5chatbotcapabilities-fbx\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/lp/copilot-playground\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:21:48.007Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-breadcrumb-subn-293b3-subnav-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-breadcrumb-subn-293b3-subnav-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-breadcrumb-subn-293b3-subnav-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "55f406db4e356965ab39-b5409fb61dcf04ee783d",
+              "file": "components/breadcrumb-subnav.spec.ts",
+              "line": 26,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/contentbutton.spec.ts",
+      "file": "components/contentbutton.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: contentbutton",
+          "file": "components/contentbutton.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7267,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "contentbutton: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/security\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/datasheets/streamline-procurement-from-source-to-pay-with-agentic-ai\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/guides/real-world-enterprise-ai-agent-use-cases/access\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-financial-services\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/datasheets/8-ways-moveworks-makes-supporting-employees-effortless\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:21:56.610Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-contentbutton-C-dbde6-button-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-contentbutton-C-dbde6-button-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-contentbutton-C-dbde6-button-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "98101e1859899ab91d42-44c23e45769308d1df71",
+              "file": "components/contentbutton.spec.ts",
+              "line": 26,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/contentcontainer.spec.ts",
+      "file": "components/contentcontainer.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: contentcontainer",
+          "file": "components/contentcontainer.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6437,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "contentcontainer: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/events/forrester-summit\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/lp/view-demo\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/lp/moveworks-demo\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/integrations/confluence-data-center\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/guides/hr-best-practices-for-global-workforce-cheat-sheet\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:04.447Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-contentcontaine-5a807-tainer-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-contentcontaine-5a807-tainer-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-contentcontaine-5a807-tainer-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "1a99f102e3df5570fa5d-2fdad925d92db53fca27",
+              "file": "components/contentcontainer.spec.ts",
+              "line": 26,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/featuredcasestudy.spec.ts",
+      "file": "components/featuredcasestudy.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: featuredcasestudy",
+          "file": "components/featuredcasestudy.spec.ts",
+          "line": 17,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7788,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "featuredcasestudy: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/ai-analytics\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/lp/ai-copilot-that-automates-employee-support\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/knowledge-management\n"
+                        },
+                        {
+                          "text": "[REDIRECT 301] https://www.moveworks.com/us/en/solutions/AI-for-Engineering -> https://www.moveworks.com/us/en/solutions/ai-for-engineering\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/AI-for-Engineering\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/employee-notifications\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:11.471Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-featuredcasestu-96944-estudy-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-featuredcasestu-96944-estudy-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-featuredcasestu-96944-estudy-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b42fb53051aa769f902-940d4bb02c59afcf727b",
+              "file": "components/featuredcasestudy.spec.ts",
+              "line": 27,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/footer-navigation.spec.ts",
+      "file": "components/footer-navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: footer-navigation",
+          "file": "components/footer-navigation.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "No pages in component-index.json for moveworksprogram/components/footer-navigation — re-run `npm run build-index` against author if this component was recently added or moved.",
+                      "location": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/footer-navigation.spec.ts",
+                        "line": 23,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "footer-navigation: 0 pages to check\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:20.029Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "No pages in component-index.json for moveworksprogram/components/footer-navigation — re-run `npm run build-index` against author if this component was recently added or moved.",
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/footer-navigation.spec.ts",
+                            "line": 23,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-footer-navigati-339d1-gation-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "94159838727aa9897792-25191f655041f4c709be",
+              "file": "components/footer-navigation.spec.ts",
+              "line": 26,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/header-navigation.spec.ts",
+      "file": "components/header-navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: header-navigation",
+          "file": "components/header-navigation.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "No pages in component-index.json for moveworksprogram/components/header-navigation — re-run `npm run build-index` against author if this component was recently added or moved.",
+                      "location": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/header-navigation.spec.ts",
+                        "line": 23,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "header-navigation: 0 pages to check\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:20.065Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "No pages in component-index.json for moveworksprogram/components/header-navigation — re-run `npm run build-index` against author if this component was recently added or moved.",
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/header-navigation.spec.ts",
+                            "line": 23,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-header-navigati-1fad8-gation-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d70d1a01edd4a77dca26-3b6896a58c9e8326f545",
+              "file": "components/header-navigation.spec.ts",
+              "line": 26,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/hero.spec.ts",
+      "file": "components/hero.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: hero v1",
+          "file": "components/hero.spec.ts",
+          "line": 18,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "No pages in component-index.json for moveworksprogram/components/hero/v1/hero — re-run `npm run build-index` against author if this component was recently added or moved.",
+                      "location": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/hero.spec.ts",
+                        "line": 25,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "hero v1: 0 pages to check\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:20.105Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "No pages in component-index.json for moveworksprogram/components/hero/v1/hero — re-run `npm run build-index` against author if this component was recently added or moved.",
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/hero.spec.ts",
+                            "line": 25,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-hero-Component-hero-v1-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "fb9532e21dc32f854ff3-fd1b21b9aa88a8834057",
+              "file": "components/hero.spec.ts",
+              "line": 28,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Component: hero v2",
+          "file": "components/hero.spec.ts",
+          "line": 42,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "No pages in component-index.json for moveworksprogram/components/hero/v2/hero — re-run `npm run build-index` against author if this component was recently added or moved.",
+                      "location": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/hero.spec.ts",
+                        "line": 49,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "hero v2: 0 pages to check\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:20.150Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "No pages in component-index.json for moveworksprogram/components/hero/v2/hero — re-run `npm run build-index` against author if this component was recently added or moved.",
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/hero.spec.ts",
+                            "line": 49,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-hero-Component-hero-v2-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "fb9532e21dc32f854ff3-f8a797391f10d36ddc74",
+              "file": "components/hero.spec.ts",
+              "line": 52,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/herocard.spec.ts",
+      "file": "components/herocard.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: herocard",
+          "file": "components/herocard.spec.ts",
+          "line": 19,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 11633,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "herocard: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/lp/demo/ai-powered-service-desk\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/developers\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/integrations/axero\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/guides/7-must-haves-for-your-service-desk-virtual-agent\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/ai-terms-glossary/optimization\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:20.194Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-herocard-Component-herocard-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-herocard-Component-herocard-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-herocard-Component-herocard-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4908c7bdb6c4ee641664-308b7283a91757d918c0",
+              "file": "components/herocard.spec.ts",
+              "line": 29,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/herowithcarousel.spec.ts",
+      "file": "components/herowithcarousel.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: herowithcarousel",
+          "file": "components/herowithcarousel.spec.ts",
+          "line": 20,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6822,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "herowithcarousel: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/ai-terms-glossary/multimodal-language-models0\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/ai-terms-glossary/self-learning\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/ai-terms-glossary\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/ai-terms-glossary/openai\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/provision-management\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:32.936Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-herowithcarouse-3dc3f-rousel-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-herowithcarouse-3dc3f-rousel-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-herowithcarouse-3dc3f-rousel-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "ad09bd1dfca5c976a096-2dd3afd63a8be77e6a83",
+              "file": "components/herowithcarousel.spec.ts",
+              "line": 30,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/image-component.spec.ts",
+      "file": "components/image-component.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: image-component",
+          "file": "components/image-component.spec.ts",
+          "line": 18,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 20609,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "image-component: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/company/jiang-chen\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/customers/consumers-energy-saves-money-with-moveworks-internal-communication-software\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en\n"
+                        },
+                        {
+                          "text": "[REDIRECT 301] https://www.moveworks.com/us/en/solutions/ai-for-government -> /us/en/solutions/ai-for-federal-government\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-government\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/customers/public-sector-it-support-transformation-with-moveworks\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:22:40.372Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-image-component-fa11a-ponent-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-image-component-fa11a-ponent-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-image-component-fa11a-ponent-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d58a326c68a06df088c1-497ea8c57b653aba1227",
+              "file": "components/image-component.spec.ts",
+              "line": 28,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/info-banner.spec.ts",
+      "file": "components/info-banner.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: info-banner",
+          "file": "components/info-banner.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6468,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "info-banner: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/stakeholder-tools-driving-ai-transformation\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/unlocking-measurable-roi-with-enterprise-ai\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/enhance-hr-experience-with-agentic-ai\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/resources/webinars/ai-agent-workshop-lookup-accounts-opportunities-salesforce-owner\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/hr-product-tour\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:23:02.338Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-info-banner-Com-52566-banner-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-info-banner-Com-52566-banner-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-info-banner-Com-52566-banner-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c1e27f263e3028bb797f-d4fe4e87f4824f010d4d",
+              "file": "components/info-banner.spec.ts",
+              "line": 26,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/logoticker.spec.ts",
+      "file": "components/logoticker.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: logoticker",
+          "file": "components/logoticker.spec.ts",
+          "line": 17,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6549,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "logoticker: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/lp/paid-social-lead-gen/paid-social-thank-you\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/lp/paid-social-lead-gen\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/lp/home-page-custom\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/lp/paid-search-short\n"
+                        },
+                        {
+                          "text": "[REDIRECT 302] https://www.moveworks.com/us/en/platform/creator-studio/paths-workspace -> /us/en/platform/ai-workflow-automation\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/creator-studio/paths-workspace\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:23:09.482Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-logoticker-Comp-033d8-ticker-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-logoticker-Comp-033d8-ticker-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-logoticker-Comp-033d8-ticker-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a21677efe74281c4a983-18973529bdde0ddf7702",
+              "file": "components/logoticker.spec.ts",
+              "line": 27,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/promotional-banner.spec.ts",
+      "file": "components/promotional-banner.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: promotional-banner",
+          "file": "components/promotional-banner.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6381,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "promotional-banner: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/quick-gpt\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/internal-communication\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/ai-analytics\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-engineering\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/enterprise-search\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:23:16.762Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-promotional-ban-c284e-banner-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-promotional-ban-c284e-banner-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-promotional-ban-c284e-banner-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a77b942f4807adfe5fd9-549e5169f1445cb88f73",
+              "file": "components/promotional-banner.spec.ts",
+              "line": 26,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/related-articles.spec.ts",
+      "file": "components/related-articles.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: related-articles",
+          "file": "components/related-articles.spec.ts",
+          "line": 18,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7982,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "related-articles: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/deploying-ai-agents-for-business-automation/access\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/resources/webinars/ai-agent-workshop-enhance-erg-workday\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/building-your-ai-agent-strategy-with-ai-agent-marketplace\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/databricks-ai-led-ticket-deflection-success\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/unify-the-full-tech-stack-with-one-ai-assistant\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:23:23.678Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-related-article-8f722-ticles-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-related-article-8f722-ticles-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-related-article-8f722-ticles-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "3cb90034932b8a5b43c9-4f9953309097b49b2ab0",
+              "file": "components/related-articles.spec.ts",
+              "line": 28,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/tabbedtopic.spec.ts",
+      "file": "components/tabbedtopic.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: tabbedtopic",
+          "file": "components/tabbedtopic.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6443,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "tabbedtopic: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/resources/webinars/developers-platform-agent-studio-roadmap-update/access\n"
+                        },
+                        {
+                          "text": "[REDIRECT 302] https://www.moveworks.com/us/en/platform/creator-studio/paths-workspace -> /us/en/platform/ai-workflow-automation\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/creator-studio/paths-workspace\n"
+                        },
+                        {
+                          "text": "[REDIRECT 301] https://www.moveworks.com/us/en/product/approvals -> /us/en/platform\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/product/approvals\n"
+                        },
+                        {
+                          "text": "[REDIRECT 302] https://www.moveworks.com/us/en/platform/creator-studio/queries-workspace -> /us/en/platform/data-lookup\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/creator-studio/queries-workspace\n"
+                        },
+                        {
+                          "text": "[REDIRECT 302] https://www.moveworks.com/us/en/platform/creator-studio/events-workspace -> /us/en/platform/employee-notifications\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/creator-studio/events-workspace\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:23:32.492Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-tabbedtopic-Com-e948b-dtopic-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-tabbedtopic-Com-e948b-dtopic-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-tabbedtopic-Com-e948b-dtopic-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f0a0c56784a2077596b7-c99bf404b3eed16500f7",
+              "file": "components/tabbedtopic.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "switches active tab on click",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5938,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[NOT FOUND] /us/en/resources/webinars/developers-platform-agent-studio-roadmap-update/access\n"
+                        },
+                        {
+                          "text": "[REDIRECT 302] https://www.moveworks.com/us/en/platform/creator-studio/paths-workspace -> /us/en/platform/ai-workflow-automation\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/creator-studio/paths-workspace\n"
+                        },
+                        {
+                          "text": "[REDIRECT 301] https://www.moveworks.com/us/en/product/approvals -> /us/en/platform\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/product/approvals\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:23:39.508Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-tabbedtopic-Com-68ff6-witches-active-tab-on-click-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-tabbedtopic-Com-68ff6-witches-active-tab-on-click-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-tabbedtopic-Com-68ff6-witches-active-tab-on-click-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f0a0c56784a2077596b7-e976f05a1e0ec75fba6a",
+              "file": "components/tabbedtopic.spec.ts",
+              "line": 47,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/text-component.spec.ts",
+      "file": "components/text-component.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: text-component",
+          "file": "components/text-component.spec.ts",
+          "line": 21,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 8248,
+                      "error": {
+                        "message": "Error: \ntext-component: 1 issue(s):\n  • /us/en/customers/procore-employees-satisfied-with-moveworks-digital-employee-experience-strategy — no .cmp-text-v2 root\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \ntext-component: 1 issue(s):\n  • /us/en/customers/procore-employees-satisfied-with-moveworks-digital-employee-experience-strategy — no .cmp-text-v2 root\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /home/runner/work/mwcom/mwcom/playwright-tests/tests/components/text-component.spec.ts:45:125",
+                        "location": {
+                          "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/text-component.spec.ts",
+                          "column": 125,
+                          "line": 45
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 43 |\u001b[39m     }\n \u001b[90m 44 |\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 45 |\u001b[39m     expect\u001b[33m.\u001b[39msoft(issues\u001b[33m.\u001b[39mlength\u001b[33m,\u001b[39m \u001b[32m`\\ntext-component: ${issues.length} issue(s):\\n${issues.map((i) => '  • ' + i).join('\\n')}`\u001b[39m)\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                                                                                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 46 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 47 |\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 48 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/text-component.spec.ts",
+                            "column": 125,
+                            "line": 45
+                          },
+                          "message": "Error: \ntext-component: 1 issue(s):\n  • /us/en/customers/procore-employees-satisfied-with-moveworks-digital-employee-experience-strategy — no .cmp-text-v2 root\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n  43 |     }\n  44 |\n> 45 |     expect.soft(issues.length, `\\ntext-component: ${issues.length} issue(s):\\n${issues.map((i) => '  • ' + i).join('\\n')}`).toBe(0);\n     |                                                                                                                             ^\n  46 |   });\n  47 | });\n  48 |\n    at /home/runner/work/mwcom/mwcom/playwright-tests/tests/components/text-component.spec.ts:45:125"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "text-component: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/customers/procore-employees-satisfied-with-moveworks-digital-employee-experience-strategy\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/events\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-local-government\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/product-tour\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:23:46.176Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-text-component--0078f-ponent-renders-DOM-contract-chromium/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-text-component--0078f-ponent-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-text-component--0078f-ponent-renders-DOM-contract-chromium/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-text-component--0078f-ponent-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/text-component.spec.ts",
+                        "column": 125,
+                        "line": 45
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "c950da349c052db92081-4b2ee10bfd058192e641",
+              "file": "components/text-component.spec.ts",
+              "line": 31,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/title.spec.ts",
+      "file": "components/title.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: title",
+          "file": "components/title.spec.ts",
+          "line": 19,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6858,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "title: 5 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/guides/leverage-ai-in-hr-drive-culture-performance-and-growth/access\n"
+                        },
+                        {
+                          "text": "[REDIRECT 302] https://www.moveworks.com/us/en/company/news/media-coverage/introducing-moveworks-for-hr-the-first-ai-solution-that-provides-personalized-hr-support -> /us/en/company/news/media-coverage\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/company/news/media-coverage/introducing-moveworks-for-hr-the-first-ai-solution-that-provides-personalized-hr-support\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/header-content/solutions/by-initiative-/multilingual-support/cost-reduction\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/lp/demo-b\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/guides/empower-workforce-and-increase-efficiency-with-enterprise-search/access\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:23:55.932Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-title-Component-title-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-title-Component-title-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-title-Component-title-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6ff897fc4b7892e98312-4c02b7963fdd008e170e",
+              "file": "components/title.spec.ts",
+              "line": 29,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/video-popup.spec.ts",
+      "file": "components/video-popup.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: video-popup",
+          "file": "components/video-popup.spec.ts",
+          "line": 17,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "No pages in component-index.json for moveworksprogram/components/video-popup — re-run `npm run build-index` against author if this component was recently added or moved.",
+                      "location": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/video-popup.spec.ts",
+                        "line": 24,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "video-popup: 0 pages to check\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:24:03.540Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "description": "No pages in component-index.json for moveworksprogram/components/video-popup — re-run `npm run build-index` against author if this component was recently added or moved.",
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/components/video-popup.spec.ts",
+                            "line": 24,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-video-popup-Com-d9136--popup-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e92a55a3f396a9689f34-255092e90bae25958abd",
+              "file": "components/video-popup.spec.ts",
+              "line": 27,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "components/videocontainer.spec.ts",
+      "file": "components/videocontainer.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Component: videocontainer",
+          "file": "components/videocontainer.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "renders DOM contract",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5671,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "videocontainer: 3 pages to check\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/deploying-ai-agents-for-business-automation/access\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/live-product-tour/access\n"
+                        },
+                        {
+                          "text": "[NOT FOUND] /us/en/resources/webinars/developers-platform-agent-studio-roadmap-update/access\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:24:03.589Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-videocontainer--53f56-tainer-renders-DOM-contract-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-videocontainer--53f56-tainer-renders-DOM-contract-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/components-videocontainer--53f56-tainer-renders-DOM-contract-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "861afcaca04d35b15967-c7af67b29f5bb72c7c8b",
+              "file": "components/videocontainer.spec.ts",
+              "line": 25,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "nav-pages-sanity.spec.ts",
+      "file": "nav-pages-sanity.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Header + Footer Nav — Sanity",
+          "file": "nav-pages-sanity.spec.ts",
+          "line": 106,
+          "column": 6,
+          "specs": [
+            {
+              "title": "every nav-reachable page is healthy",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 3000000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 531006,
+                      "error": {
+                        "message": "Error: \n10 issue(s) across 61 nav-page(s) × 1 viewport(s):\n\n  • [BROKEN IMGS x1] /us/en/company/careers: https://www.moveworks.com/adobe/dynamicmedia/deliver/dm-aid--41b3638f-a760-4ba0-b3c7-4f0aa5953e2e/empty-spacer.png?preferwebp=true&quality=85&width=800\n  • [JS ERROR] /us/en/company/contact: Cannot read properties of null (reading 'attributes')\n  • [JS ERROR] /us/en/demo: Cannot read properties of null (reading 'style')\n  • [403] /us/en/partners/partner-registration\n  • [NET FAIL x5] /us/en/platform: font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Book.woff2 | font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Light.woff2 | font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/fa-solid-900.woff2\n  • [JS ERROR] /us/en/platform/quick-gpt: Cannot read properties of null (reading 'style')\n  • [BROKEN IMGS x1] /us/en/resources: https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [NET FAIL x1] /us/en/resources: image:404 https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [BROKEN IMGS x1] /us/en/resources/blog: https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [NET FAIL x1] /us/en/resources/blog: image:404 https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m10\u001b[39m",
+                        "stack": "Error: \n10 issue(s) across 61 nav-page(s) × 1 viewport(s):\n\n  • [BROKEN IMGS x1] /us/en/company/careers: https://www.moveworks.com/adobe/dynamicmedia/deliver/dm-aid--41b3638f-a760-4ba0-b3c7-4f0aa5953e2e/empty-spacer.png?preferwebp=true&quality=85&width=800\n  • [JS ERROR] /us/en/company/contact: Cannot read properties of null (reading 'attributes')\n  • [JS ERROR] /us/en/demo: Cannot read properties of null (reading 'style')\n  • [403] /us/en/partners/partner-registration\n  • [NET FAIL x5] /us/en/platform: font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Book.woff2 | font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Light.woff2 | font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/fa-solid-900.woff2\n  • [JS ERROR] /us/en/platform/quick-gpt: Cannot read properties of null (reading 'style')\n  • [BROKEN IMGS x1] /us/en/resources: https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [NET FAIL x1] /us/en/resources: image:404 https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [BROKEN IMGS x1] /us/en/resources/blog: https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [NET FAIL x1] /us/en/resources/blog: image:404 https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m10\u001b[39m\n    at /home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts:438:42",
+                        "location": {
+                          "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts",
+                          "column": 42,
+                          "line": 438
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 436 |\u001b[39m         \u001b[33m...\u001b[39merrors\u001b[33m.\u001b[39mmap((e) \u001b[33m=>\u001b[39m \u001b[32m`  • ${e}`\u001b[39m)\u001b[33m,\u001b[39m\n \u001b[90m 437 |\u001b[39m       ]\u001b[33m.\u001b[39mjoin(\u001b[32m'\\n'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 438 |\u001b[39m       expect\u001b[33m.\u001b[39msoft(errors\u001b[33m.\u001b[39mlength\u001b[33m,\u001b[39m report)\u001b[33m.\u001b[39mtoBe(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                                          \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 439 |\u001b[39m     }\n \u001b[90m 440 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 441 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts",
+                            "column": 42,
+                            "line": 438
+                          },
+                          "message": "Error: \n10 issue(s) across 61 nav-page(s) × 1 viewport(s):\n\n  • [BROKEN IMGS x1] /us/en/company/careers: https://www.moveworks.com/adobe/dynamicmedia/deliver/dm-aid--41b3638f-a760-4ba0-b3c7-4f0aa5953e2e/empty-spacer.png?preferwebp=true&quality=85&width=800\n  • [JS ERROR] /us/en/company/contact: Cannot read properties of null (reading 'attributes')\n  • [JS ERROR] /us/en/demo: Cannot read properties of null (reading 'style')\n  • [403] /us/en/partners/partner-registration\n  • [NET FAIL x5] /us/en/platform: font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Book.woff2 | font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/ServiceNowSans-Light.woff2 | font:403 https://www.servicenow.com/etc.clientlibs/ds/clientlibs/clientlib-arc-commons/resources/fonts/fa-solid-900.woff2\n  • [JS ERROR] /us/en/platform/quick-gpt: Cannot read properties of null (reading 'style')\n  • [BROKEN IMGS x1] /us/en/resources: https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [NET FAIL x1] /us/en/resources: image:404 https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [BROKEN IMGS x1] /us/en/resources/blog: https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n  • [NET FAIL x1] /us/en/resources/blog: image:404 https://www.moveworks.com/content/dam/images/internal/blog/featured-images/Durham-county-featured-image.png\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m10\u001b[39m\n\n  436 |         ...errors.map((e) => `  • ${e}`),\n  437 |       ].join('\\n');\n> 438 |       expect.soft(errors.length, report).toBe(0);\n      |                                          ^\n  439 |     }\n  440 |   });\n  441 | });\n    at /home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts:438:42"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "Nav discovery: 61 pages from header+footer of / (desktop+mobile)\n"
+                        },
+                        {
+                          "text": "  · /\n"
+                        },
+                        {
+                          "text": "  · /us/en/company/about\n"
+                        },
+                        {
+                          "text": "  · /us/en/company/careers\n"
+                        },
+                        {
+                          "text": "  · /us/en/company/contact\n"
+                        },
+                        {
+                          "text": "  · /us/en/company/news\n"
+                        },
+                        {
+                          "text": "  · /us/en/customers\n"
+                        },
+                        {
+                          "text": "  · /us/en/demo\n"
+                        },
+                        {
+                          "text": "  · /us/en/developers\n"
+                        },
+                        {
+                          "text": "  · /us/en/legal\n"
+                        },
+                        {
+                          "text": "  · /us/en/legal/cookie-policy\n"
+                        },
+                        {
+                          "text": "  · /us/en/legal/privacy-policy\n"
+                        },
+                        {
+                          "text": "  · /us/en/lp/view-demo?src=nav\n"
+                        },
+                        {
+                          "text": "  · /us/en/partners\n"
+                        },
+                        {
+                          "text": "  · /us/en/partners/partner-registration\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/ai-agent-builder\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/ai-assistant\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/ai-knowledge-management\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/ai-summarizer\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/employee-experience-insights\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/enterprise-search\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/integrations\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/internal-communication\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/moveworks-ai\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/moveworks-for-servicenow-customers\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/productivity\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/quick-gpt\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/reasoning-engine\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/security\n"
+                        },
+                        {
+                          "text": "  · /us/en/platform/service-management\n"
+                        },
+                        {
+                          "text": "  · /us/en/professional-services\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/ai-terms-glossary\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/blog\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/blog/servicenow-moveworks-acquisition-closed\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/events\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/events/moveworks-global/on-demand-2025\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/guides/the-ultimate-guide-to-agentic-ai\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/webinars\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/webinars/product-tour\n"
+                        },
+                        {
+                          "text": "  · /us/en/resources/webinars/servicenow-agentic-ai-use-cases\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-digital-transformation\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-employee-support\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-engineering\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-federal-government\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-finance\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-financial-services\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-government\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-healthcare\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-hr\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-it\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-local-government\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-for-manufacturing\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/ai-help-desk\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/automated-employee-onboarding\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/cost-reduction\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/employee-experience\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/identity-access-management\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/marketing-automation\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/sales-automation\n"
+                        },
+                        {
+                          "text": "  · /us/en/solutions/self-service\n"
+                        },
+                        {
+                          "text": "[TESTED] /\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 76 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/company/about\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 64 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/company/careers\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 145 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/company/contact\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 61 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/company/news\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 72 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/customers\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 107 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/demo\n"
+                        },
+                        {
+                          "text": "  ↳ checked 4 same-origin link(s) (of 4 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/developers\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 65 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/legal\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 73 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/legal/cookie-policy\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 60 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/legal/privacy-policy\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 60 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/lp/view-demo?src=nav\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 60 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/partners\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 63 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[REDIRECT 301] https://www.moveworks.com/us/en/partners/partner-registration -> https://www.servicenow.com/partners/become-a-partner.html\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 64 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/ai-agent-builder\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 69 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/ai-assistant\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 70 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/ai-knowledge-management\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 65 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/ai-summarizer\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 60 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/employee-experience-insights\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 64 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/enterprise-search\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 68 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/integrations\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 135 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/internal-communication\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 69 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/moveworks-ai\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 64 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/moveworks-for-servicenow-customers\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 64 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/productivity\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 64 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/quick-gpt\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 61 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/reasoning-engine\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 63 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/security\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 67 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/platform/service-management\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 68 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/professional-services\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 63 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 888 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/ai-terms-glossary\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 161 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/blog\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 547 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/blog/servicenow-moveworks-acquisition-closed\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 68 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/events\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 133 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/events/moveworks-global/on-demand-2025\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 60 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/guides/the-ultimate-guide-to-agentic-ai\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 61 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 132 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/product-tour\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 60 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/servicenow-agentic-ai-use-cases\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 63 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-digital-transformation\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 66 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-employee-support\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 64 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-engineering\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 68 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-federal-government\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 67 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-finance\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 65 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-financial-services\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 67 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[REDIRECT 301] https://www.moveworks.com/us/en/solutions/ai-for-government -> /us/en/solutions/ai-for-federal-government\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-government\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 67 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-healthcare\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 65 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-hr\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 69 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-it\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 66 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-local-government\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 68 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-for-manufacturing\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 68 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/ai-help-desk\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 65 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/automated-employee-onboarding\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 66 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/cost-reduction\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 65 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/employee-experience\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 65 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/identity-access-management\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 64 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/marketing-automation\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 67 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/sales-automation\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 65 found), 0 broken\n"
+                        },
+                        {
+                          "text": "[TESTED] /us/en/solutions/self-service\n"
+                        },
+                        {
+                          "text": "  ↳ checked 50 same-origin link(s) (of 76 found), 0 broken\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:26:40.422Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/nav-pages-sanity-Header-Fo-33e53-v-reachable-page-is-healthy-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/nav-pages-sanity-Header-Fo-33e53-v-reachable-page-is-healthy-chromium/test-failed-2.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/nav-pages-sanity-Header-Fo-33e53-v-reachable-page-is-healthy-chromium/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/runner/work/mwcom/mwcom/playwright-tests/tests/nav-pages-sanity.spec.ts",
+                        "column": 42,
+                        "line": 438
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "2cabfa9629a4574bf678-d97b596bc05c25928c44",
+              "file": "nav-pages-sanity.spec.ts",
+              "line": 200,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/breadcrumb-subnav.visual.spec.ts",
+      "file": "visual/breadcrumb-subnav.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: breadcrumb-subnav",
+          "file": "visual/breadcrumb-subnav.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "breadcrumb-subnav matches snapshot — us-en-company-news-press-releases-Moveworks-Recognized-for-Generative-AI-Innovation-in-2023-Artificial-Intelligence-Breakthrough-Awards-Program",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3991,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/company/news/press-releases/Moveworks-Recognized-for-Generative-AI-Innovation-in-2023-Artificial-Intelligence-Breakthrough-Awards-Program\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:24:09.795Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-breadcrumb-subnav.v-2e774-Breakthrough-Awards-Program-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-breadcrumb-subnav.v-2e774-Breakthrough-Awards-Program-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-breadcrumb-subnav.v-2e774-Breakthrough-Awards-Program-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "c52553a8d597d48cd524-1ef0cd1ed1a8ad2270b7",
+              "file": "visual/breadcrumb-subnav.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/contentbutton.visual.spec.ts",
+      "file": "visual/contentbutton.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: contentbutton",
+          "file": "visual/contentbutton.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "contentbutton matches snapshot — us-en-company",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1402,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/company\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:24:14.056Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-contentbutton.visua-4cb0d-es-snapshot-—-us-en-company-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-contentbutton.visua-4cb0d-es-snapshot-—-us-en-company-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-contentbutton.visua-4cb0d-es-snapshot-—-us-en-company-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5cb36d278055e6e47848-e327d17d9ea908b96124",
+              "file": "visual/contentbutton.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/contentcontainer.visual.spec.ts",
+      "file": "visual/contentcontainer.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: contentcontainer",
+          "file": "visual/contentcontainer.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "contentcontainer matches snapshot — us-en-company-about",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6403,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/company/about\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:24:15.595Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-contentcontainer.vi-43023-pshot-—-us-en-company-about-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-contentcontainer.vi-43023-pshot-—-us-en-company-about-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-contentcontainer.vi-43023-pshot-—-us-en-company-about-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f9da47797d335cf0c87e-51f37e3b17d123ad853f",
+              "file": "visual/contentcontainer.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/featuredcasestudy.visual.spec.ts",
+      "file": "visual/featuredcasestudy.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: featuredcasestudy",
+          "file": "visual/featuredcasestudy.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "featuredcasestudy matches snapshot — us-en-lp-ai-copilot-that-automates-employee-support",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4836,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/lp/ai-copilot-that-automates-employee-support\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:24:22.482Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-featuredcasestudy.v-1ac15--automates-employee-support-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-featuredcasestudy.v-1ac15--automates-employee-support-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-featuredcasestudy.v-1ac15--automates-employee-support-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d84b15c607e56e4dc323-47ede7a18764250a1777",
+              "file": "visual/featuredcasestudy.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/header-navigation.visual.spec.ts",
+      "file": "visual/header-navigation.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: header-navigation",
+          "file": "visual/header-navigation.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "header-navigation matches snapshot — homepage",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 17718,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:24:27.680Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-header-navigation.v-d2647-matches-snapshot-—-homepage-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-header-navigation.v-d2647-matches-snapshot-—-homepage-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-header-navigation.v-d2647-matches-snapshot-—-homepage-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d5590679c5c945488b65-869473c2f9c5674f4adc",
+              "file": "visual/header-navigation.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/hero.visual.spec.ts",
+      "file": "visual/hero.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: hero v1",
+          "file": "visual/hero.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "hero v1 matches snapshot — homepage",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 18378,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:24:46.587Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-hero.visual-Visual--7fba7-matches-snapshot-—-homepage-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-hero.visual-Visual--7fba7-matches-snapshot-—-homepage-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-hero.visual-Visual--7fba7-matches-snapshot-—-homepage-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6ddccd3ef98e14915471-9049d1d143c0062bcd8c",
+              "file": "visual/hero.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/herocard.visual.spec.ts",
+      "file": "visual/herocard.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: herocard",
+          "file": "visual/herocard.visual.spec.ts",
+          "line": 21,
+          "column": 6,
+          "specs": [
+            {
+              "title": "herocard matches snapshot — developers",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7585,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/developers\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:25:06.342Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-364f6-tches-snapshot-—-developers-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-364f6-tches-snapshot-—-developers-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-364f6-tches-snapshot-—-developers-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b02d569a51bb13e28954-888ff78136a800423879",
+              "file": "visual/herocard.visual.spec.ts",
+              "line": 25,
+              "column": 9
+            },
+            {
+              "title": "herocard matches snapshot — platform-ai",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5163,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/platform/ai-assistant\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:25:14.301Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-0f01b-ches-snapshot-—-platform-ai-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-0f01b-ches-snapshot-—-platform-ai-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-0f01b-ches-snapshot-—-platform-ai-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b02d569a51bb13e28954-1ddf8db489a10a74b5bb",
+              "file": "visual/herocard.visual.spec.ts",
+              "line": 25,
+              "column": 9
+            },
+            {
+              "title": "herocard matches snapshot — reasoning-engine",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5433,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/platform/reasoning-engine\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:25:19.822Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-5edd2-snapshot-—-reasoning-engine-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-5edd2-snapshot-—-reasoning-engine-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herocard.visual-Vis-5edd2-snapshot-—-reasoning-engine-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b02d569a51bb13e28954-9f5a02f5010bf891c2ef",
+              "file": "visual/herocard.visual.spec.ts",
+              "line": 25,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/herowithcarousel.visual.spec.ts",
+      "file": "visual/herowithcarousel.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: herowithcarousel",
+          "file": "visual/herowithcarousel.visual.spec.ts",
+          "line": 14,
+          "column": 6,
+          "specs": [
+            {
+              "title": "herowithcarousel matches snapshot — platform-ai-assistant",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5973,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/platform/ai-assistant\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:25:25.601Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herowithcarousel.vi-17707-hot-—-platform-ai-assistant-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herowithcarousel.vi-17707-hot-—-platform-ai-assistant-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-herowithcarousel.vi-17707-hot-—-platform-ai-assistant-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "8c9a20267a0538213356-793845cc79093ad07ebf",
+              "file": "visual/herowithcarousel.visual.spec.ts",
+              "line": 18,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/image-component.visual.spec.ts",
+      "file": "visual/image-component.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: image-component",
+          "file": "visual/image-component.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "image-component matches snapshot — us-en-company-bhavin-shah",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 8900,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/company/bhavin-shah\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:25:32.000Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-image-component.vis-57e04-—-us-en-company-bhavin-shah-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-image-component.vis-57e04-—-us-en-company-bhavin-shah-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-image-component.vis-57e04-—-us-en-company-bhavin-shah-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7f5b1f96881a2fdf1970-a72446b04e4b9e34d73a",
+              "file": "visual/image-component.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/info-banner.visual.spec.ts",
+      "file": "visual/info-banner.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: info-banner",
+          "file": "visual/info-banner.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "info-banner matches snapshot — us-en-resources-webinars-10-ways-ai-can-automate-repetitive-tasks-in-workday",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5342,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/10-ways-ai-can-automate-repetitive-tasks-in-workday\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:25:41.310Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-info-banner.visual--4198f-repetitive-tasks-in-workday-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-info-banner.visual--4198f-repetitive-tasks-in-workday-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-info-banner.visual--4198f-repetitive-tasks-in-workday-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4a5c39efca0e8640a024-85bc1a5411f96b25d20a",
+              "file": "visual/info-banner.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/logoticker.visual.spec.ts",
+      "file": "visual/logoticker.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: logoticker",
+          "file": "visual/logoticker.visual.spec.ts",
+          "line": 17,
+          "column": 6,
+          "specs": [
+            {
+              "title": "logoticker matches snapshot — company-about",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7691,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/company/about\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:25:47.028Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-logoticker.visual-V-c877c-es-snapshot-—-company-about-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-logoticker.visual-V-c877c-es-snapshot-—-company-about-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-logoticker.visual-V-c877c-es-snapshot-—-company-about-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "74d7ecb6ec90096092cc-d3f4bbdcf0f13ebe3b49",
+              "file": "visual/logoticker.visual.spec.ts",
+              "line": 21,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/promotional-banner.visual.spec.ts",
+      "file": "visual/promotional-banner.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: promotional-banner",
+          "file": "visual/promotional-banner.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "promotional-banner matches snapshot — us-en-company-about",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7183,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/company/about\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:25:55.375Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-promotional-banner.-a38cd-pshot-—-us-en-company-about-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-promotional-banner.-a38cd-pshot-—-us-en-company-about-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-promotional-banner.-a38cd-pshot-—-us-en-company-about-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2b96bb666494668e6adb-41b001f1955ebd8a50af",
+              "file": "visual/promotional-banner.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/tabbedtopic.visual.spec.ts",
+      "file": "visual/tabbedtopic.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: tabbedtopic",
+          "file": "visual/tabbedtopic.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "tabbedtopic matches snapshot — platform",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6178,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/platform\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:26:03.226Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-tabbedtopic.visual--64ca9-matches-snapshot-—-platform-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-tabbedtopic.visual--64ca9-matches-snapshot-—-platform-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-tabbedtopic.visual--64ca9-matches-snapshot-—-platform-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6620b95589015cb26abe-c6c1ba2940af804d36e3",
+              "file": "visual/tabbedtopic.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/text-component.visual.spec.ts",
+      "file": "visual/text-component.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: text-component",
+          "file": "visual/text-component.visual.spec.ts",
+          "line": 14,
+          "column": 6,
+          "specs": [
+            {
+              "title": "text-component matches snapshot — homepage",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 17076,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:26:09.926Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-text-component.visu-8e664-matches-snapshot-—-homepage-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-text-component.visu-8e664-matches-snapshot-—-homepage-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-text-component.visu-8e664-matches-snapshot-—-homepage-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "183d55b32918e6c6eca5-36cddb5f4b7c5e39f8ca",
+              "file": "visual/text-component.visual.spec.ts",
+              "line": 18,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/title.visual.spec.ts",
+      "file": "visual/title.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: title",
+          "file": "visual/title.visual.spec.ts",
+          "line": 17,
+          "column": 6,
+          "specs": [
+            {
+              "title": "title matches snapshot — platform-security",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4728,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/platform/security\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:26:28.140Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-title.visual-Visual-5ba94-napshot-—-platform-security-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-title.visual-Visual-5ba94-napshot-—-platform-security-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-title.visual-Visual-5ba94-napshot-—-platform-security-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "9b740e11692415dbcd46-549df73eea5bf0da7f12",
+              "file": "visual/title.visual.spec.ts",
+              "line": 21,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "visual/videocontainer.visual.spec.ts",
+      "file": "visual/videocontainer.visual.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Visual: videocontainer",
+          "file": "visual/videocontainer.visual.spec.ts",
+          "line": 15,
+          "column": 6,
+          "specs": [
+            {
+              "title": "videocontainer matches snapshot — us-en-resources-webinars-deploying-ai-agents-for-business-automation-access",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6014,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[TESTED] /us/en/resources/webinars/deploying-ai-agents-for-business-automation/access\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-02T16:26:33.199Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-videocontainer.visu-66947--business-automation-access-chromium/test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-videocontainer.visu-66947--business-automation-access-chromium/video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/runner/work/mwcom/mwcom/playwright-tests/test-results/visual-videocontainer.visu-66947--business-automation-access-chromium/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "bdd07c8ef238ca03651e-d03d9f30a26350f2f553",
+              "file": "visual/videocontainer.visual.spec.ts",
+              "line": 19,
+              "column": 9
+            }
+          ]
+        }
+      ]
     }
   ],
+  "errors": [],
   "stats": {
-    "startTime": "2026-06-02T16:02:04.997Z",
-    "duration": 571.5949999999999,
-    "expected": 0,
-    "skipped": 0,
-    "unexpected": 0,
+    "startTime": "2026-06-02T16:21:46.147Z",
+    "duration": 838975.954,
+    "expected": 33,
+    "skipped": 7,
+    "unexpected": 2,
     "flaky": 0
   }
 }
